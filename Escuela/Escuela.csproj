@@ -111,14 +111,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
-    <Content Include="Contact.aspx" />
+    <Content Include="Alumnos\alumno_d.aspx" />
+    <Content Include="Alumnos\alumno_i.aspx" />
+    <Content Include="Alumnos\alumno_s.aspx" />
+    <Content Include="Alumnos\alumno_u.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Default.aspx" />
+    <Content Include="Facultades\facultad_d.aspx" />
+    <Content Include="Facultades\facultad_i.aspx" />
+    <Content Include="Facultades\facultad_s.aspx" />
+    <Content Include="Facultades\facultad_u.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -131,6 +136,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Imagenes\contenedor.png" />
+    <Content Include="Imagenes\lapiz.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -166,28 +173,63 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alumnos\alumno_d.aspx.cs">
+      <DependentUpon>alumno_d.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alumnos\alumno_d.aspx.designer.cs">
+      <DependentUpon>alumno_d.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Alumnos\alumno_i.aspx.cs">
+      <DependentUpon>alumno_i.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alumnos\alumno_i.aspx.designer.cs">
+      <DependentUpon>alumno_i.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Alumnos\alumno_s.aspx.cs">
+      <DependentUpon>alumno_s.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alumnos\alumno_s.aspx.designer.cs">
+      <DependentUpon>alumno_s.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Alumnos\alumno_u.aspx.cs">
+      <DependentUpon>alumno_u.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alumnos\alumno_u.aspx.designer.cs">
+      <DependentUpon>alumno_u.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Contact.aspx.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
+    <Compile Include="Facultades\facultad_d.aspx.cs">
+      <DependentUpon>facultad_d.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Contact.aspx.designer.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
+    <Compile Include="Facultades\facultad_d.aspx.designer.cs">
+      <DependentUpon>facultad_d.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="Facultades\facultad_i.aspx.cs">
+      <DependentUpon>facultad_i.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="Facultades\facultad_i.aspx.designer.cs">
+      <DependentUpon>facultad_i.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Facultades\facultad_s.aspx.cs">
+      <DependentUpon>facultad_s.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Facultades\facultad_s.aspx.designer.cs">
+      <DependentUpon>facultad_s.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Facultades\facultad_u.aspx.cs">
+      <DependentUpon>facultad_u.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Facultades\facultad_u.aspx.designer.cs">
+      <DependentUpon>facultad_u.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -202,12 +244,14 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -226,6 +270,12 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Escuela_BLL\Escuela_BLL.csproj">
+      <Project>{a33366bd-37bf-44f5-b2b6-1132bfdb0089}</Project>
+      <Name>Escuela_BLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
