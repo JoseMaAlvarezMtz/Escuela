@@ -7,7 +7,9 @@
 				Codigo
 			</td>
 			<td>
-				<asp:TextBox ID="txtCodigo" runat="server"></asp:TextBox>
+				<asp:TextBox ID="txtCodigo" MaxLength="6" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvCodigo" runat="server" ErrorMessage="El codigo es requerido" Display="Dynamic" ControlToValidate="txtCodigo" ValidationGroup="vlg1"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="revCodigo" runat="server" ValidationExpression="^([A-Z]{4}[0-9]{2})$" ControlToValidate="txtCodigo" Display="Dynamic" ValidationGroup="vlg1" ErrorMessage="El formato de codigo es invalido (AAAA00)"></asp:RegularExpressionValidator>
 			</td>
 		</tr>
 		<tr>
@@ -15,7 +17,8 @@
 				Nombre
 			</td>
 			<td>
-				<asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
+				<asp:TextBox ID="txtNombre" MaxLength="100" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ErrorMessage="El nombre es requerido" Display="Dynamic" ControlToValidate="txtNombre" ValidationGroup="vlg1"></asp:RequiredFieldValidator>
 			</td>
 		</tr>
 		<tr>
@@ -24,6 +27,9 @@
 			</td>
 			<td>
 				<asp:TextBox ID="txtFecha" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvFecha" runat="server" ErrorMessage="La fecha es requerida" Display="Dynamic" ControlToValidate="txtFecha" ValidationGroup="vlg1"></asp:RequiredFieldValidator>
+                <asp:CustomValidator ID="cvFecha" runat="server" ErrorMessage="Formato invalido ingresar en formato (dd/mm/yyyy)" ControlToValidate="txtFecha" Type="Date" Operator="DateTypeCheck" ValidationGroup="vlg1"></asp:CustomValidator>
+                <asp:RegularExpressionValidator ID="revFecha" ControlToValidate="txtFecha" ValidationExpression="^([0-9]{2}/[0-9]{2}/[0-9]{4})$" runat="server" Display="Dynamic" ValidationGroup="vlg1" ErrorMessage="Formato invalido favor de ingresar con el formato (dd/mm/yyyy)"></asp:RegularExpressionValidator>
 			</td>
 		</tr>
 		<tr>
@@ -32,6 +38,7 @@
 			</td>
 			<td>
 				<asp:DropDownList ID="ddlUniversidad" runat="server"></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="rfvUniversidad" runat="server" InitialValue="0" Display="Dynamic" ControlToValidate="ddlUniversidad" ValidationGroup="vlg1" ErrorMessage="La universidad es requerida"></asp:RequiredFieldValidator>
 			</td>
 		</tr>
 		<tr>
@@ -39,9 +46,16 @@
 				
 			</td>
 			<td>
-				<asp:Button ID="btnAgregar" runat="server" Text="Agregar" OnClick="btnAgregar_Click" />
+				<asp:Button ID="btnAgregar" runat="server" Text="Agregar" OnClick="btnAgregar_Click" ValidationGroup="vlg1" />
 			</td>
 		</tr>
 	</table>
-
+    <asp:GridView ID="grvFacultades" AutoGenerateColumns="false" runat="server">
+        <Columns>
+            
+            <asp:BoundField HeaderText="Codigo" DataField="codigo"/>
+            <asp:BoundField HeaderText="Nombre" DataField="nombre"/> 
+        
+        </Columns>
+    </asp:GridView>
 </asp:Content>

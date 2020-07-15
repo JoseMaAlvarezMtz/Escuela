@@ -10,15 +10,23 @@ using Escuela_BLL;
 
 namespace Escuela.Alumnos
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class WebForm1 : System.Web.UI.Page, IAcceso
     {
         #region Eventos
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack)
             {
-                grd_Alumnos.DataSource = cargarAlumnos();
-                grd_Alumnos.DataBind();
+                if (sesionIniciada())
+                {
+                    grd_Alumnos.DataSource = cargarAlumnos();
+                    grd_Alumnos.DataBind();
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx");
+                }
+                
             }
         }
 
@@ -42,6 +50,18 @@ namespace Escuela.Alumnos
             DataTable dtAlumnos = new DataTable();
             dtAlumnos = alumno.cargarAlumnos();
             return dtAlumnos;
+        }
+
+        public bool sesionIniciada()
+        {
+            if (Session["Usuario"] != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #endregion

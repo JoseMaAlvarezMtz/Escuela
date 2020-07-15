@@ -19,7 +19,26 @@ namespace Escuela_BLL
         public void AgregarAlumno(int matricula, string nombre, DateTime fecha, int semestre, int facultad)
         {
             AlumnoDAL alumno = new AlumnoDAL();
-            alumno.AgregarAlumno(matricula,nombre,fecha,semestre,facultad);
+            DataTable dtAlumno = new DataTable();
+            dtAlumno = cargarAlumno(matricula);
+            if(dtAlumno.Rows.Count > 0)
+            {
+                throw new Exception("La matricula ya existe en la base de datos");
+            }
+            else
+            {
+                int edad = DateTime.Now.Year - fecha.Year;
+                if (edad >= 80)
+                {
+                    throw new Exception("El alumno es muy viejo, ingrese otra fecha");
+                }
+                else
+                {
+                    alumno.AgregarAlumno(matricula, nombre, fecha, semestre, facultad);
+                }
+                
+            }
+            
         }
 
         public DataTable cargarAlumno(int matricula)

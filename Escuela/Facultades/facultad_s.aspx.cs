@@ -10,15 +10,23 @@ using Escuela_BLL;
 
 namespace Escuela.Facultades
 {
-    public partial class facultad_s : System.Web.UI.Page
+    public partial class facultad_s : System.Web.UI.Page, IAcceso
     {
         #region Eventos
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                grd_Facultades.DataSource = cargarFacultades();
-                grd_Facultades.DataBind();
+                if (sesionIniciada())
+                {
+                    grd_Facultades.DataSource = cargarFacultades();
+                    grd_Facultades.DataBind();
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx");
+                }
+                
             }
         }
 
@@ -44,8 +52,20 @@ namespace Escuela.Facultades
             return dtFacultad;
         }
 
+        public bool sesionIniciada()
+        {
+            if (Session["Usuario"] != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion
 
-       
+
     }
 }

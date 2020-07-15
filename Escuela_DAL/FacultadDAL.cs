@@ -104,6 +104,30 @@ namespace Escuela_DAL
             return dtFacultad;
         }
 
+        public DataTable buscarFacultad(string codigo)
+        {
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = @"Server=LENOVO-PC\SQLEXPRESS;Database=Escuela;Trusted_connection=true";
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "sp_buscarFacultadPorCodigo";
+            command.Connection = connection;
+
+            command.Parameters.AddWithValue("pCodigo", codigo);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dtFacultad = new DataTable();
+
+            connection.Open();
+
+            adapter.SelectCommand = command;
+            adapter.Fill(dtFacultad);
+
+            connection.Close();
+            return dtFacultad;
+        }
+
         public void ModificarFacultad(int ID_Facultad,string codigo, string nombre, DateTime fecha,int universidad)
         {
             SqlConnection connection = new SqlConnection();

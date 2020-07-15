@@ -10,14 +10,23 @@ using Escuela_BLL;
 
 namespace Escuela.Alumnos
 {
-    public partial class alumno_i : System.Web.UI.Page
+    public partial class alumno_i : System.Web.UI.Page, IAcceso
     {
         #region Eventos
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                CargarFacultades();
+                if (sesionIniciada())
+                {
+                    CargarFacultades();
+                    cargarTabla();
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx");
+                }
+                
             }
         }
 
@@ -37,8 +46,40 @@ namespace Escuela.Alumnos
             DateTime fecha = Convert.ToDateTime(txtFechaNacimiento.Text);
             int semestre = int.Parse(txtSemestre.Text);
             int facultad = int.Parse(ddlFacultad.SelectedValue);
+            try
+            {
+                alumno.AgregarAlumno(matricula, nombre, fecha, semestre, facultad);
+                limpirCampos();
+                DataTable dtAlumnos = new DataTable();
+                dtAlumnos = (DataTable)ViewState["Tabla Alumnos"];
+                dtAlumnos.Rows.Add(matricula, nombre);
 
-            alumno.AgregarAlumno(matricula, nombre, fecha, semestre, facultad);
+                grd_Alumnos.DataSource = dtAlumnos;
+                grd_Alumnos.DataBind();
+            }
+            catch(Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alta", "alert('"+ex.Message+"')", true);
+            }
+            
+        }
+
+        public void limpirCampos()
+        {
+            txtMatricula.Text = "";
+            txtNombre.Text = "";
+            txtFechaNacimiento.Text = "";
+            txtSemestre.Text = "";
+            ddlFacultad.SelectedIndex = 0;
+        }
+        
+        public void cargarTabla()
+        {
+            DataTable Table = new DataTable();
+            Table.Columns.Add("Matricula");
+            Table.Columns.Add("Nombre");
+
+            ViewState["Tabla Alumnos"] = Table;  
         }
 
         public void CargarFacultades()
@@ -54,9 +95,21 @@ namespace Escuela.Alumnos
             ddlFacultad.Items.Insert(0, new ListItem("--Seleccione una Facultad--", "0"));
         }
 
+        public bool sesionIniciada()
+        {
+            if (Session["Usuario"] != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         #endregion
 
-        
+
     }
 }
