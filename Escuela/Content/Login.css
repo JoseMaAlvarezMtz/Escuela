@@ -1,0 +1,27 @@
+﻿#imagenLogin{
+    content: url('/Imagenes/Logo.jpg');
+    margin:auto;
+}
+
+#formLogin{
+    width: 50%;
+    margin: 100px auto;
+    border: 1px solid yellow;
+    box-shadow: orange 10px 10px;
+    margin:auto;
+    padding-bottom:30px;
+}
+
+table{
+    margin:auto;
+    font-family:'Edwardian Script ITC';
+    font-size:30px;
+}
+
+#btnAcceso{
+    background-color:coral;
+    border-color:bisque;
+    color:black;
+    font-family:'Freestyle Script';
+    font-size:25px;
+}

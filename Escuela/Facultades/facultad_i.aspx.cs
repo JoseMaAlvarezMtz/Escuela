@@ -10,7 +10,7 @@ using Escuela_BLL;
 
 namespace Escuela.Facultades
 {
-    public partial class facultad_i : System.Web.UI.Page, IAcceso
+    public partial class facultad_i : TemaEscuela, IAcceso
     {
         #region Eventos
         protected void Page_Load(object sender, EventArgs e)

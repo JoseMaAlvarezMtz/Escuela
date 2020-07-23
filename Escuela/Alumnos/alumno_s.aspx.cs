@@ -10,7 +10,7 @@ using Escuela_BLL;
 
 namespace Escuela.Alumnos
 {
-    public partial class WebForm1 : System.Web.UI.Page, IAcceso
+    public partial class WebForm1 : TemaEscuela, IAcceso
     {
         #region Eventos
         protected void Page_Load(object sender, EventArgs e)

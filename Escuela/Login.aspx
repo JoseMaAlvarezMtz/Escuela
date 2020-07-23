@@ -6,10 +6,11 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
+    <link href="Content/Login.css" rel="stylesheet" />
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div>
+    <form id="formLogin" runat="server">
+        <div id="imagenLogin"> </div>
             <table>
                 <tr>
                     <td>Nombre de Usuario</td>
@@ -31,7 +32,7 @@
                 </tr>
 
             </table>
-        </div>
+        
     </form>
 </body>
 </html>
