@@ -17,6 +17,7 @@
 			<asp:BoundField HeaderText="Nombre" DataField="nombre"/>
 			<asp:BoundField HeaderText="Fecha de Creacion" DataField="fechaCreacion" DataFormatString="{0:dd/MM/yyyy}" />
 			<asp:BoundField HeaderText="Universidad" DataField="universidad" />
+            <asp:BoundField HeaderText="Ciudad" DataField="Ciudad" />
 
 		</columns>
 		</asp:GridView>

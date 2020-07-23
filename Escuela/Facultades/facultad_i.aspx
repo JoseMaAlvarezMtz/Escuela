@@ -41,6 +41,27 @@
                 <asp:RequiredFieldValidator ID="rfvUniversidad" runat="server" InitialValue="0" Display="Dynamic" ControlToValidate="ddlUniversidad" ValidationGroup="vlg1" ErrorMessage="La universidad es requerida"></asp:RequiredFieldValidator>
 			</td>
 		</tr>
+        <tr>
+            <td>Pais</td>
+            <td>
+                <asp:DropDownList ID="ddlPais" OnSelectedIndexChanged="ddlPais_SelectedIndexChanged" runat="server"></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="rfvPais" runat="server" InitialValue="0" Display="Dynamic" ControlToValidate="ddlPais" ValidationGroup="vlg1" ErrorMessage="El pais es requerido"></asp:RequiredFieldValidator>
+            </td>
+        </tr>
+        <tr>
+            <td>Estado</td>
+            <td>
+                <asp:DropDownList ID="ddlEstado" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged" runat="server"></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="rfvEstado" runat="server" InitialValue="0" Display="Dynamic" ControlToValidate="ddlEstado" ValidationGroup="vlg1" ErrorMessage="El estado es requerido"></asp:RequiredFieldValidator>
+            </td>
+        </tr>
+        <tr>
+            <td>Ciudad</td>
+            <td>
+                <asp:DropDownList ID="ddlCiudad" runat="server"></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="rfvCiudad" runat="server" InitialValue="0" Display="Dynamic" ControlToValidate="ddlCiudad" ValidationGroup="vlg1" ErrorMessage="La ciudad es requerida"></asp:RequiredFieldValidator>
+            </td>
+        </tr>
 		<tr>
 			<td>
 				
