@@ -12,24 +12,18 @@ namespace Escuela_DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class FACULTADD
+    public partial class Materia
     {
-        public FACULTADD()
+        public Materia()
         {
-            this.ALUMNOO = new HashSet<ALUMNOO>();
+            this.MateriaAlumno = new HashSet<MateriaAlumno>();
             this.MateriaFacultad = new HashSet<MateriaFacultad>();
         }
     
-        public int ID_Facultad { get; set; }
-        public string codigo { get; set; }
-        public string nombre { get; set; }
-        public System.DateTime fechaCreacion { get; set; }
-        public int universidad { get; set; }
-        public int ciudad { get; set; }
+        public int ID_Materia { get; set; }
+        public string materia1 { get; set; }
     
-        public virtual ICollection<ALUMNOO> ALUMNOO { get; set; }
-        public virtual Ciudad Ciudad1 { get; set; }
-        public virtual UNIVERSIDADD UNIVERSIDADD { get; set; }
+        public virtual ICollection<MateriaAlumno> MateriaAlumno { get; set; }
         public virtual ICollection<MateriaFacultad> MateriaFacultad { get; set; }
     }
 }

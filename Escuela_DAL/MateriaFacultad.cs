@@ -12,20 +12,13 @@ namespace Escuela_DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class ALUMNOO
+    public partial class MateriaFacultad
     {
-        public ALUMNOO()
-        {
-            this.MateriaAlumno = new HashSet<MateriaAlumno>();
-        }
-    
-        public int matricula { get; set; }
-        public string nombre { get; set; }
-        public System.DateTime fechaNacimiento { get; set; }
-        public int semestre { get; set; }
+        public int ID_MateriaFacultad { get; set; }
+        public int materia { get; set; }
         public int facultad { get; set; }
     
         public virtual FACULTADD FACULTADD { get; set; }
-        public virtual ICollection<MateriaAlumno> MateriaAlumno { get; set; }
+        public virtual Materia Materia1 { get; set; }
     }
 }

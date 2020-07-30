@@ -50,6 +50,14 @@
                 <asp:RequiredFieldValidator ID="rfv_facultad" runat="server" InitialValue="0" ErrorMessage="La facultad es requerida" Display="Dynamic" ControlToValidate="ddlFacultad" ValidationGroup="vlg1"></asp:RequiredFieldValidator>
 			</td>
 		</tr>
+        <tr>
+            <td>
+                Materias
+            </td>
+            <td>
+                <asp:ListBox ID="ListBoxMaterias" CssClass="listas" Width="150px" SelectionMode="Multiple" runat="server"></asp:ListBox>
+            </td>
+        </tr>
 		<tr>
 			<td>
 				

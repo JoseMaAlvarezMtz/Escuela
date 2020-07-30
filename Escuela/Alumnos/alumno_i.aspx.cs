@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Escuela_BLL;
+using Escuela_DAL;
 
 namespace Escuela.Alumnos
 {
@@ -21,6 +22,7 @@ namespace Escuela.Alumnos
                 {
                     CargarFacultades();
                     cargarTabla();
+                    CargarMaterias();
                 }
                 else
                 {
@@ -93,6 +95,18 @@ namespace Escuela.Alumnos
             ddlFacultad.DataBind();
 
             ddlFacultad.Items.Insert(0, new ListItem("--Seleccione una Facultad--", "0"));
+        }
+
+        public void CargarMaterias()
+        {
+            MateriaBLL Materias = new MateriaBLL();
+            List<Materia> dtFacultades = new List<Materia>();
+
+            dtFacultades = Materias.CargarMaterias();
+            ListBoxMaterias.DataSource = dtFacultades;
+            ListBoxMaterias.DataTextField = "materia";
+            ListBoxMaterias.DataValueField = "ID_Materia";
+            ListBoxMaterias.DataBind();
         }
 
         public bool sesionIniciada()

@@ -65,6 +65,14 @@
                 <asp:RequiredFieldValidator ID="rfvCiudad" runat="server" InitialValue="0" Display="Dynamic" ControlToValidate="ddlCiudad" ValidationGroup="vlg1" ErrorMessage="La ciudad es requerida"></asp:RequiredFieldValidator>
             </td>
         </tr>
+        <tr>
+            <td>
+                Materias
+            </td>
+            <td>
+                <asp:ListBox ID="ListBoxMaterias" CssClass="lista" Width="150px" SelectionMode="Multiple" runat="server"></asp:ListBox>
+            </td>
+        </tr>
 		<tr>
 			<td>
 				

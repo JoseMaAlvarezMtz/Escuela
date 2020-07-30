@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Escuela_DAL;
+using System.Transactions;
 
 namespace Escuela_BLL
 {
@@ -19,17 +20,23 @@ namespace Escuela_BLL
         }
 
         //FACULTADES
+        public int consultar()
+        {
+            FacultadDAL facultad = new FacultadDAL();
+            return facultad.consultar();
+        }
+
         public List<object> cargarFacultades()
         {
             FacultadDAL facultad = new FacultadDAL();
             return facultad.cargarFacultades();
         }
 
-        public void AgregarFacultad(FACULTADD Facultad)
+        public void AgregarFacultad(FACULTADD Facultad, List<MateriaFacultad> materiaFacultades)
         {
             FacultadDAL facultad = new FacultadDAL();
             FACULTADD registro = new FACULTADD();
-
+            MateriaFacultadBLL materias = new MateriaFacultadBLL();
             
             registro = facultad.buscarFacultad(Facultad.codigo);
 
@@ -52,7 +59,18 @@ namespace Escuela_BLL
                     }
                     else
                     {
-                        facultad.AgregarFacultad(Facultad);
+                        using (TransactionScope ts = new TransactionScope())
+                        {
+                            facultad.AgregarFacultad(Facultad);
+
+                            foreach(MateriaFacultad materia in materiaFacultades)
+                            {
+                                materias.agregarMateriaFacultad(materia);
+                            }
+
+                            ts.Complete();
+                        }
+                            
                     }
                 }
             }
@@ -65,15 +83,39 @@ namespace Escuela_BLL
             return facultad.cargarFacultad(ID_Facultad);
         }
 
-        public void ModificarFacultad(FACULTADD pFacultad)
+        public void ModificarFacultad(FACULTADD pFacultad, List<MateriaFacultad> materiaFacultades)
         {
             FacultadDAL facultad = new FacultadDAL();
-            facultad.ModificarFacultad(pFacultad);
+            MateriaFacultadBLL materia = new MateriaFacultadBLL();
+
+            using (TransactionScope ts = new TransactionScope())
+            {
+                facultad.ModificarFacultad(pFacultad);
+
+                materia.eliminarMaterias(pFacultad.ID_Facultad);
+
+                foreach(MateriaFacultad nmaterias in materiaFacultades)
+                {
+                    materia.agregarMateriaFacultad(nmaterias);
+                }
+
+                ts.Complete();
+            }
+            
         }
         public void eliminarFacultad(int ID_Facultad)
         {
             FacultadDAL facultad = new FacultadDAL();
-            facultad.eliminarFacultad(ID_Facultad);
+            MateriaFacultadBLL materia = new MateriaFacultadBLL();
+
+            using (TransactionScope ts = new TransactionScope())
+            {
+                materia.eliminarMaterias(ID_Facultad);
+                facultad.eliminarFacultad(ID_Facultad);
+
+                ts.Complete();
+            }
+            
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Escuela.Facultades
                     CargarUniversidades();
                     cargarPais();
                     cargarTabla();
+                    CargarMaterias();
                 }
                 else
                 {
@@ -71,11 +72,13 @@ namespace Escuela.Facultades
 
 
         #region Metodos
+
         public void AgregarFacultad()
         {
             FACULTADD pFacultad = new FACULTADD();
             FacultadBLL Facultad = new FacultadBLL();
 
+            string Codigo = txtCodigo.Text;
             pFacultad.codigo = txtCodigo.Text;
             pFacultad.nombre = txtNombre.Text;
             pFacultad.fechaCreacion = Convert.ToDateTime(txtFecha.Text);
@@ -84,7 +87,25 @@ namespace Escuela.Facultades
 
             try
             {
-                Facultad.AgregarFacultad(pFacultad);
+                MateriaFacultad MateriaFacultad;
+                List<MateriaFacultad> materiaFacultades = new List<MateriaFacultad>();
+                FacultadBLL Consulta = new FacultadBLL();
+                int ID;
+
+                foreach(ListItem item in ListBoxMaterias.Items)
+                {
+                    if (item.Selected)
+                    {
+                        MateriaFacultad = new MateriaFacultad();
+                        MateriaFacultad.materia = int.Parse(item.Value);
+                        ID = Consulta.consultar();
+                        ID = ID + 1;
+                        MateriaFacultad.facultad = ID;
+                        materiaFacultades.Add(MateriaFacultad);
+                    }
+                }
+
+                Facultad.AgregarFacultad(pFacultad, materiaFacultades);
                 limpirCampos();
                 DataTable dtFacultades = new DataTable();
                 dtFacultades = (DataTable)ViewState["Tabla Facultad"];
@@ -172,6 +193,18 @@ namespace Escuela.Facultades
             ddlCiudad.DataBind();
 
             ddlCiudad.Items.Insert(0, new ListItem("---Seleccionar Ciudad---", "0"));
+        }
+
+        public void CargarMaterias()
+        {
+            MateriaBLL Materias = new MateriaBLL();
+            List<Materia> dtFacultades = new List<Materia>();
+
+            dtFacultades = Materias.CargarMaterias();
+            ListBoxMaterias.DataSource = dtFacultades;
+            ListBoxMaterias.DataTextField = "materia1";
+            ListBoxMaterias.DataValueField = "ID_Materia";
+            ListBoxMaterias.DataBind();
         }
 
         public bool sesionIniciada()

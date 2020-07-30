@@ -32,5 +32,8 @@ namespace Escuela_DAL
         public DbSet<Pais> Pais { get; set; }
         public DbSet<UNIVERSIDADD> UNIVERSIDADD { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Materia> Materia { get; set; }
+        public DbSet<MateriaAlumno> MateriaAlumno { get; set; }
+        public DbSet<MateriaFacultad> MateriaFacultad { get; set; }
     }
 }

@@ -79,6 +79,17 @@
       <DependentUpon>Escuela.tt</DependentUpon>
     </Compile>
     <Compile Include="FacultadDAL.cs" />
+    <Compile Include="Materia.cs">
+      <DependentUpon>Escuela.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MateriaAlumno.cs">
+      <DependentUpon>Escuela.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MateriaDAL.cs" />
+    <Compile Include="MateriaFacultad.cs">
+      <DependentUpon>Escuela.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MateriaFacultadDAL.cs" />
     <Compile Include="Pais.cs">
       <DependentUpon>Escuela.tt</DependentUpon>
     </Compile>

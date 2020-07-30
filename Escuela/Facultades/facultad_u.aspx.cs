@@ -22,10 +22,12 @@ namespace Escuela.Facultades
                 {
                     int ID_Facultad = int.Parse(Request.QueryString["pID_Facultad"]);
                     CargarUniversidades();
-                    cargarPais();               
+                    cargarPais();
+                    CargarMaterias();
                     cargarFacultad(ID_Facultad);
                     cargarEstados();
                     cargarCiudades();
+                    
                 }
                 else
                 {
@@ -89,6 +91,14 @@ namespace Escuela.Facultades
             ddlPais.SelectedValue = lFacultad.Ciudad1.Estado1.pais.ToString();
             ddlEstado.SelectedValue = lFacultad.Ciudad1.estado.ToString();
             ddlCiudad.SelectedValue = lFacultad.ciudad.ToString();
+
+            List<MateriaFacultad> listaMaterias = new List<MateriaFacultad>();
+            listaMaterias = lFacultad.MateriaFacultad.ToList();
+
+            foreach (MateriaFacultad materiaFacultad in listaMaterias)
+            {
+                ListBoxMaterias.Items.FindByValue(materiaFacultad.materia.ToString()).Selected = true;
+            }
         }
 
 
@@ -118,7 +128,29 @@ namespace Escuela.Facultades
             pFacultad.universidad = int.Parse(ddlUniversidad.SelectedValue);
             pFacultad.ciudad = int.Parse(ddlCiudad.SelectedValue);
 
-            facultad.ModificarFacultad(pFacultad);
+            try
+            {
+                MateriaFacultad MateriaFacultad;
+                List<MateriaFacultad> materiaFacultades = new List<MateriaFacultad>();
+
+                foreach (ListItem item in ListBoxMaterias.Items)
+                {
+                    if (item.Selected)
+                    {
+                        MateriaFacultad = new MateriaFacultad();
+                        MateriaFacultad.materia = int.Parse(item.Value);
+                        MateriaFacultad.facultad = pFacultad.ID_Facultad;
+                        materiaFacultades.Add(MateriaFacultad);
+                    }
+                }
+
+                facultad.ModificarFacultad(pFacultad, materiaFacultades);
+                
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alta", "alert('" + ex.Message + "')", true);
+            }
         }
 
         public bool sesionIniciada()
@@ -174,6 +206,18 @@ namespace Escuela.Facultades
             ddlCiudad.DataBind();
 
             ddlCiudad.Items.Insert(0, new ListItem("---Seleccionar Ciudad---", "0"));
+        }
+
+        public void CargarMaterias()
+        {
+            MateriaBLL Materias = new MateriaBLL();
+            List<Materia> dtFacultades = new List<Materia>();
+
+            dtFacultades = Materias.CargarMaterias();
+            ListBoxMaterias.DataSource = dtFacultades;
+            ListBoxMaterias.DataTextField = "materia1";
+            ListBoxMaterias.DataValueField = "ID_Materia";
+            ListBoxMaterias.DataBind();
         }
         #endregion
     }

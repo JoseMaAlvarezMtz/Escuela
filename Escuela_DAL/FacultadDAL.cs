@@ -41,6 +41,23 @@ namespace Escuela_DAL
             return dtFacultades;
         }
         //FACULTADES
+        public int consultar()
+        {
+            try
+            {
+                using (ESCUELAEntities db = new ESCUELAEntities())
+                {
+                    var ID = db.FACULTADD.OrderByDescending(f => f.ID_Facultad).FirstOrDefault();
+
+                    return ID.ID_Facultad;
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0; 
+            }
+            
+        }
         public List<object> cargarFacultades()
         {
             var alumnos = from mFacultades in Modelo.FACULTADD
