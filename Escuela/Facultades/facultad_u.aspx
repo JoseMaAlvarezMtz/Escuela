@@ -1,7 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="facultad_u.aspx.cs" Inherits="Escuela.Facultades.facultad_u" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
 
-	<table>
+
+	    <table>
 		<tr>
 			<td>
 				ID Facultad
@@ -42,15 +45,37 @@
 				<asp:DropDownList ID="ddlUniversidad" runat="server"></asp:DropDownList>
 			</td>
 		</tr>
+        <tr>
+            <td>Pais</td>
+            <td>
+                <asp:DropDownList ID="ddlPais" OnSelectedIndexChanged="ddlPais_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
+               
+            </td>
+        </tr>
+        <tr>
+            <td>Estado</td>
+            <td>
+                <asp:DropDownList ID="ddlEstado" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>Ciudad</td>
+            <td>
+                <asp:DropDownList ID="ddlCiudad" runat="server"></asp:DropDownList>
+                
+            </td>
+        </tr>
 		<tr>
 			<td>
 				
 			</td>
 			<td>
-				<asp:Button ID="btnEditar" runat="server" Text="Editar" OnClick="btnEditar_Click"  />
+				
 			</td>
 		</tr>
 	</table>
-
-
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <asp:Button ID="btnEditar" runat="server" Text="Editar" OnClick="btnEditar_Click"  />
 </asp:Content>

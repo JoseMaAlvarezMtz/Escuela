@@ -10,6 +10,13 @@ namespace Escuela_DAL
 {
     public class AlumnoDAL
     {
+        ESCUELAEntities modelo;
+
+        public AlumnoDAL()
+        {
+            modelo = new ESCUELAEntities();
+        }
+
         public DataTable cargarAlumnos()
         {
             SqlConnection connection = new SqlConnection();

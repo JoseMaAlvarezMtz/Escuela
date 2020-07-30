@@ -10,29 +10,19 @@ namespace Escuela_DAL
 {
     public class EstadoDAL
     {
-        public DataTable cargarEstadoporPais(int Pais)
+        ESCUELAEntities modelo;
+
+        public EstadoDAL()
         {
-            SqlConnection connection = new SqlConnection();
-            connection.ConnectionString = @"Server=LENOVO-PC\SQLEXPRESS;Database=Escuela;Trusted_connection=true";
+            modelo = new ESCUELAEntities();
+        }
+        public List<Estado> cargarEstadoporPais(int Pais)
+        {
+            var Estado = from mEstado in modelo.Estado
+                         where mEstado.pais == Pais
+                         select mEstado;
 
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "sp_CargarEstadoporPais";
-            command.Connection = connection;
-
-            command.Parameters.AddWithValue("pPais", Pais);
-
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            DataTable dtEstado = new DataTable();
-
-            connection.Open();
-
-            adapter.SelectCommand = command;
-            adapter.Fill(dtEstado);
-
-            connection.Close();
-
-            return dtEstado;
+            return Estado.ToList();
         }
     }
 }

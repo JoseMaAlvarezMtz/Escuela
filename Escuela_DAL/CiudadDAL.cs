@@ -10,29 +10,20 @@ namespace Escuela_DAL
 {
     public class CiudadDAL
     {
-        public DataTable cargarCiudadporEstado(int Estado)
+        ESCUELAEntities modelo;
+
+        public CiudadDAL()
         {
-            SqlConnection connection = new SqlConnection();
-            connection.ConnectionString = @"Server=LENOVO-PC\SQLEXPRESS;Database=Escuela;Trusted_connection=true";
+            modelo = new ESCUELAEntities();
+        }
 
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "sp_CargarCiudadporEstado";
-            command.Connection = connection;
+        public List<Ciudad> cargarCiudadporEstado(int Estado)
+        {
+            var Ciudades = from mCiudades in modelo.Ciudad
+                           where mCiudades.estado == Estado
+                           select mCiudades;
 
-            command.Parameters.AddWithValue("pEstado", Estado);
-
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            DataTable dtCiudad = new DataTable();
-
-            connection.Open();
-
-            adapter.SelectCommand = command;
-            adapter.Fill(dtCiudad);
-
-            connection.Close();
-
-            return dtCiudad;
+            return Ciudades.ToList();
         }
     }
 }

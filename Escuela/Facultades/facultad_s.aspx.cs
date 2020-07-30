@@ -44,12 +44,12 @@ namespace Escuela.Facultades
         #endregion
 
         #region Metodos
-        public DataTable cargarFacultades()
+        public List<object> cargarFacultades()
         {
            FacultadBLL facultad = new FacultadBLL();
-            DataTable dtFacultad = new DataTable();
-            dtFacultad = facultad.cargarFacultades();
-            return dtFacultad;
+            List<object> lFacultad = new List<object>();
+            lFacultad = facultad.cargarFacultades();
+            return lFacultad;
         }
 
         public bool sesionIniciada()

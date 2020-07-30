@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Escuela_BLL;
+using Escuela_DAL;
 
 namespace Escuela.Facultades
 {
@@ -21,7 +22,10 @@ namespace Escuela.Facultades
                 {
                     int ID_Facultad = int.Parse(Request.QueryString["pID_Facultad"]);
                     CargarUniversidades();
+                    cargarPais();               
                     cargarFacultad(ID_Facultad);
+                    cargarEstados();
+                    cargarCiudades();
                 }
                 else
                 {
@@ -37,6 +41,36 @@ namespace Escuela.Facultades
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Alta", "alert('Facultad modificado exitosamente')", true);
         }
 
+        protected void ddlPais_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlPais.SelectedIndex != 0)
+            {
+                ddlEstado.Items.Clear();
+                ddlCiudad.Items.Clear();
+                cargarEstados();
+            }
+            else
+            {
+                ddlEstado.Items.Clear();
+                ddlCiudad.Items.Clear();
+            }
+
+        }
+
+        protected void ddlEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlEstado.SelectedIndex != 0)
+            {
+                ddlCiudad.Items.Clear();
+                cargarCiudades();
+            }
+            else
+            {
+                ddlCiudad.Items.Clear();
+            }
+
+        }
+
         #endregion
 
         #region Metodos
@@ -44,22 +78,24 @@ namespace Escuela.Facultades
         public void cargarFacultad(int ID_Facultad)
         {
             FacultadBLL facultad = new FacultadBLL();
-            DataTable dtFacultad = new DataTable();
-            dtFacultad = facultad.cargarFacultad(ID_Facultad);
+            FACULTADD lFacultad = new FACULTADD();
+            lFacultad = facultad.cargarFacultad(ID_Facultad);
 
-            lblID_Facultad.Text = dtFacultad.Rows[0]["ID_Facultad"].ToString();
-            txtNombre.Text = dtFacultad.Rows[0]["nombre"].ToString();
-            txtFecha.Text = dtFacultad.Rows[0]["fechaCreacion"].ToString().Substring(0, 10);
-            txtCodigo.Text = dtFacultad.Rows[0]["codigo"].ToString();
-            ddlUniversidad.SelectedValue = dtFacultad.Rows[0]["universidad"].ToString();
-
+            lblID_Facultad.Text = lFacultad.ID_Facultad.ToString();
+            txtNombre.Text = lFacultad.nombre.ToString();
+            txtFecha.Text = lFacultad.fechaCreacion.ToString().Substring(0, 10);
+            txtCodigo.Text = lFacultad.codigo.ToString();
+            ddlUniversidad.SelectedValue = lFacultad.universidad.ToString();
+            ddlPais.SelectedValue = lFacultad.Ciudad1.Estado1.pais.ToString();
+            ddlEstado.SelectedValue = lFacultad.Ciudad1.estado.ToString();
+            ddlCiudad.SelectedValue = lFacultad.ciudad.ToString();
         }
 
 
         public void CargarUniversidades()
         {
             UniversidadBLL universidad = new UniversidadBLL();
-            DataTable dtUniversidades = new DataTable();
+            List<UNIVERSIDADD> dtUniversidades = new List<UNIVERSIDADD>();
             dtUniversidades = universidad.CargarUniversidades();
 
             ddlUniversidad.DataSource = dtUniversidades;
@@ -73,14 +109,16 @@ namespace Escuela.Facultades
         public void ModificarFacultad()
         {
             FacultadBLL facultad = new FacultadBLL();
+            FACULTADD pFacultad = new FACULTADD();
 
-            int ID_Facultad = int.Parse(lblID_Facultad.Text);
-            string nombre = txtNombre.Text;
-            DateTime fecha = Convert.ToDateTime(txtFecha.Text);
-            string codigo = txtCodigo.Text;
-            int Universidad = int.Parse(ddlUniversidad.SelectedValue);
+            pFacultad.ID_Facultad = int.Parse(lblID_Facultad.Text);
+            pFacultad.nombre = txtNombre.Text;
+            pFacultad.fechaCreacion = Convert.ToDateTime(txtFecha.Text);
+            pFacultad.codigo = txtCodigo.Text;
+            pFacultad.universidad = int.Parse(ddlUniversidad.SelectedValue);
+            pFacultad.ciudad = int.Parse(ddlCiudad.SelectedValue);
 
-            facultad.ModificarFacultad(ID_Facultad, codigo, nombre, fecha, Universidad);
+            facultad.ModificarFacultad(pFacultad);
         }
 
         public bool sesionIniciada()
@@ -94,6 +132,48 @@ namespace Escuela.Facultades
             {
                 return false;
             }
+        }
+
+        public void cargarPais()
+        {
+            PaisBLL Pais = new PaisBLL();
+            List<Pais> dtPais = new List<Pais>();
+
+            dtPais = Pais.CargarPaises();
+            ddlPais.DataSource = dtPais;
+            ddlPais.DataTextField = "Pais1";
+            ddlPais.DataValueField = "ID_Pais";
+            ddlPais.DataBind();
+
+            ddlPais.Items.Insert(0, new ListItem("---Seleccionar Pais---", "0"));
+        }
+
+        public void cargarEstados()
+        {
+            EstadoBLL Estado = new EstadoBLL();
+            List<Estado> dtEstado = new List<Estado>();
+
+            dtEstado = Estado.cargarEstadoporPais(int.Parse(ddlPais.SelectedValue));
+            ddlEstado.DataSource = dtEstado;
+            ddlEstado.DataTextField = "estado1";
+            ddlEstado.DataValueField = "ID_Estado";
+            ddlEstado.DataBind();
+
+            ddlEstado.Items.Insert(0, new ListItem("---Seleccionar Estado---", "0"));
+        }
+
+        public void cargarCiudades()
+        {
+            CiudadBLL Ciudad = new CiudadBLL();
+            List<Ciudad> dtCiudad = new List<Ciudad>();
+
+            dtCiudad = Ciudad.cargarCiudadporEstado(int.Parse(ddlEstado.SelectedValue));
+            ddlCiudad.DataSource = dtCiudad;
+            ddlCiudad.DataTextField = "ciudad1";
+            ddlCiudad.DataValueField = "ID_Ciudad";
+            ddlCiudad.DataBind();
+
+            ddlCiudad.Items.Insert(0, new ListItem("---Seleccionar Ciudad---", "0"));
         }
         #endregion
     }

@@ -19,24 +19,27 @@ namespace Escuela_BLL
         }
 
         //FACULTADES
-        public DataTable cargarFacultades()
+        public List<object> cargarFacultades()
         {
             FacultadDAL facultad = new FacultadDAL();
             return facultad.cargarFacultades();
         }
 
-        public void AgregarFacultad(string codigo, string nombre, DateTime fecha, int universidad)
+        public void AgregarFacultad(FACULTADD Facultad)
         {
             FacultadDAL facultad = new FacultadDAL();
-            DataTable registro = new DataTable();
-            registro = facultad.buscarFacultad(codigo);
-            if (registro.Rows.Count > 0)
+            FACULTADD registro = new FACULTADD();
+
+            
+            registro = facultad.buscarFacultad(Facultad.codigo);
+
+            if (registro != null)
             {
                 throw new Exception("Codigo de Facultad ya existe favor de ingresar uno diferente.");
             }
             else
             {
-                int tiempo = fecha.Year;
+                int tiempo = Facultad.fechaCreacion.Year;
                 if (tiempo <= 1900)
                 {
                     throw new Exception("Fecha no permitida, introduce una fecha mayor a 1900”.");
@@ -49,23 +52,23 @@ namespace Escuela_BLL
                     }
                     else
                     {
-                        facultad.AgregarFacultad(codigo, nombre, fecha, universidad);
+                        facultad.AgregarFacultad(Facultad);
                     }
                 }
             }
 
         }
 
-        public DataTable cargarFacultad(int ID_Facultad)
+        public FACULTADD cargarFacultad(int ID_Facultad)
         {
             FacultadDAL facultad = new FacultadDAL();
             return facultad.cargarFacultad(ID_Facultad);
         }
 
-        public void ModificarFacultad(int ID_Facultad,string codigo, string nombre, DateTime fecha, int universidad)
+        public void ModificarFacultad(FACULTADD pFacultad)
         {
             FacultadDAL facultad = new FacultadDAL();
-            facultad.ModificarFacultad(ID_Facultad, codigo, nombre, fecha, universidad);
+            facultad.ModificarFacultad(pFacultad);
         }
         public void eliminarFacultad(int ID_Facultad)
         {

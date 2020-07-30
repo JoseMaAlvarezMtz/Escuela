@@ -10,7 +10,7 @@ namespace Escuela_BLL
 {
     public class PaisBLL
     {
-        public DataTable CargarPaises()
+        public List<Pais> CargarPaises()
         {
             PaisDAL PAIS = new PaisDAL();
             return PAIS.CargarPaises();

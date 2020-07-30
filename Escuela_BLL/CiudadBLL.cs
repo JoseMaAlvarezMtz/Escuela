@@ -10,7 +10,7 @@ namespace Escuela_BLL
 {
     public class CiudadBLL
     {
-        public DataTable cargarCiudadporEstado(int Estado)
+        public List<Ciudad> cargarCiudadporEstado(int Estado)
         {
             CiudadDAL Ciudad = new CiudadDAL();
             return Ciudad.cargarCiudadporEstado(Estado);

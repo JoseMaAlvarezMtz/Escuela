@@ -11,7 +11,7 @@ namespace Escuela_BLL
     public class UniversidadBLL
     {
         //FACULTADES
-        public DataTable CargarUniversidades()
+        public List<UNIVERSIDADD> CargarUniversidades()
         {
             UniversidadDAL universidad = new UniversidadDAL();
             return universidad.CargarUniversidades();

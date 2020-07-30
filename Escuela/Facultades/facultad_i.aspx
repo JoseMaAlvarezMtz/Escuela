@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="facultad_i.aspx.cs" Inherits="Escuela.Facultades.facultad_i" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+
 	<table>
 		<tr>
 			<td>
@@ -37,28 +40,28 @@
 				Universidad
 			</td>
 			<td>
-				<asp:DropDownList ID="ddlUniversidad" runat="server"></asp:DropDownList>
+				<asp:DropDownList ID="ddlUniversidad" CssClass="lista" runat="server"></asp:DropDownList>
                 <asp:RequiredFieldValidator ID="rfvUniversidad" runat="server" InitialValue="0" Display="Dynamic" ControlToValidate="ddlUniversidad" ValidationGroup="vlg1" ErrorMessage="La universidad es requerida"></asp:RequiredFieldValidator>
 			</td>
 		</tr>
         <tr>
             <td>Pais</td>
             <td>
-                <asp:DropDownList ID="ddlPais" OnSelectedIndexChanged="ddlPais_SelectedIndexChanged" runat="server"></asp:DropDownList>
+                <asp:DropDownList ID="ddlPais" CssClass="lista" OnSelectedIndexChanged="ddlPais_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
                 <asp:RequiredFieldValidator ID="rfvPais" runat="server" InitialValue="0" Display="Dynamic" ControlToValidate="ddlPais" ValidationGroup="vlg1" ErrorMessage="El pais es requerido"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
             <td>Estado</td>
             <td>
-                <asp:DropDownList ID="ddlEstado" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged" runat="server"></asp:DropDownList>
+                <asp:DropDownList ID="ddlEstado" CssClass="lista" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
                 <asp:RequiredFieldValidator ID="rfvEstado" runat="server" InitialValue="0" Display="Dynamic" ControlToValidate="ddlEstado" ValidationGroup="vlg1" ErrorMessage="El estado es requerido"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
             <td>Ciudad</td>
             <td>
-                <asp:DropDownList ID="ddlCiudad" runat="server"></asp:DropDownList>
+                <asp:DropDownList ID="ddlCiudad" CssClass="lista" runat="server"></asp:DropDownList>
                 <asp:RequiredFieldValidator ID="rfvCiudad" runat="server" InitialValue="0" Display="Dynamic" ControlToValidate="ddlCiudad" ValidationGroup="vlg1" ErrorMessage="La ciudad es requerida"></asp:RequiredFieldValidator>
             </td>
         </tr>
@@ -67,10 +70,16 @@
 				
 			</td>
 			<td>
-				<asp:Button ID="btnAgregar" runat="server" Text="Agregar" OnClick="btnAgregar_Click" ValidationGroup="vlg1" />
+				
 			</td>
 		</tr>
 	</table>
+            
+        </ContentTemplate>
+    </asp:UpdatePanel>
+
+    <asp:Button ID="btnAgregar" runat="server" Text="Agregar" OnClick="btnAgregar_Click" ValidationGroup="vlg1" />
+
     <asp:GridView ID="grvFacultades" AutoGenerateColumns="false" runat="server">
         <Columns>
             
@@ -79,4 +88,37 @@
         
         </Columns>
     </asp:GridView>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+    
+                $("#MainContent_txtFecha").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1900:2010",
+                dateFormat: "dd/mm/yy"
+            });
+
+            $(".lista").chosen();
+        });
+
+        var Manager = Sys.WebForms.PageRequestManager.getInstance();
+
+        Manager.add_endRequest(function () {
+             $(document).ready(function () {
+    
+                    $("#MainContent_txtFecha").datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "1900:2010",
+                        dateFormat: "dd/mm/yy"
+                    });
+
+                $(".lista").chosen();
+            });
+
+        });
+</script>
+ 
+
 </asp:Content>
