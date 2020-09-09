@@ -7,18 +7,18 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Escuela {
+namespace Escuela.Facultades {
     
     
-    public partial class SiteMaster {
+    public partial class facultad_s {
         
         /// <summary>
-        /// Control MainContent.
+        /// Control grd_Facultades.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.GridView grd_Facultades;
     }
 }
